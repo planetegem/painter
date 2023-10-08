@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl">
+    <head>
+        <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+        <meta name="description" content="An online paint simulator">
+        <meta name="keywords" content="paint, image editing, javascript">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="googlebot" content="notranslate">
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="Niels Van Damme">
+        <title>Planetegem Painter</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    
+    <body>
+        <header class="active">
+            <button id="infoButton">i</button>
+            <div id="infoBody">
+                <h1>Planetegem Painter</h1>
+                <p>Welcome to Planetegem Painter, an online paint simulator made in javascript. No external libraries were used: everything was custom-built and written entirely from the ground up.</p>
+                <p>Once started, you can switch between a selection tool and a draw tool. 
+                The selection tool gives you the ability to import images and delete them. 
+                You can also move the images, rotate them or change their scale. 
+                The images were taken from <a href="https://www.heritagetype.com/pages/free-vintage-illustrations">Heritage Type</a>.
+                The draw tool will allow you to paint on the canvas. 
+                You can switch between drawing on the foreground and background, and can pick a color with the colorwheel & a size and shape for your brush using the sliders.</p>
+                <p>Click continue to close this screen and start painting. If you need to read these instructions again, you can click the 'i' in the upper left corner.</p>
+                <button id="continueButton">- continue -</button>
+            </div>
+        </header>
+        
+        <main id="mainPage">
+            <canvas id="cursorCanvas"></canvas>
+            <canvas id="mainCanvas"></canvas>
+            <canvas id="backCanvas"></canvas>
+        </main>
+        
+        <nav id="menu">
+            <button id="imageMode">select</button>
+            <button id="drawMode" class="active">draw</button>
+            <div id="menuBody">
+                <div id="drawMenu">
+                    <div id="colorwheel">
+                        <canvas id="rgbwheel"></canvas>
+                        <canvas id="secondwheel"></canvas>
+                        <canvas id="finalcolor"></canvas>
+                    </div>
+                    <button class="shaper active">
+                        <canvas id="circleSlider"></canvas>
+                    </button>
+                    <button class="shaper">
+                        <canvas id="squareSlider"></canvas>
+                    </button>
+                    <button class="shaper">
+                        <canvas id="diamondSlider"></canvas>
+                    </button>
+                    <button id="switchContext">switch to background</button>
+                    <button id="clearCanvas">clear canvas</button>
+                </div>
+                <div id="imageMenu">
+                    <div id="transformers">
+                        <button class="active" id="translate">
+                            <img src="imageMode/assets/translate.svg">
+                        </button>
+                        <button id="scale">
+                            <img src="imageMode/assets/scale.svg">
+                        </button>
+                        <button id="rotate">
+                            <img src="imageMode/assets/rotate.svg">
+                        </button>
+                        <button id="delete">
+                            <img src="imageMode/assets/delete.svg">
+                        </button>
+                    </div>
+                    <div id="importer">
+                        <div id="imageContainer">
+                            <img id="imagePreview" src="imageMode/images/bear.png">
+                        </div>
+                        <div id="importButtons">
+                            <button id="leftCycle">
+                                <img src="imageMode/assets/left.svg">
+                            </button>
+                            <button id="importImage">import<br>image</button>
+                            <button id="rightCycle">
+                                <img src="imageMode/assets/right.svg">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="underlay"></div>
+            </div>
+            <div id="optionsContainer">
+                <button id="optionsButton">hide options</button>
+            </div>
+        </nav>
+        
+        <footer>
+            <hr class="divider">
+            <button id="returnbutton" onclick="location.href='http://www.planetegem.be'" type="button">
+                <img id="return">
+                <h4>return&nbsp;to<br>planetegem</h4>
+            </button>
+            <p>&#169; 2023 Niels Van Damme | info@planetegem.be | <a href="https://www.instagram.com/planetegem/" style="text-decoration:none;color:black;">www.instagram.com/planetegem</a> <br> &#9825; <a href="http://www.pecten.be" target="_blank" style="text-decoration:none;color:black;">www.pecten.be</a> &#9825;</p>
+        </footer>
+        
+        <script src="drawMode/colorwheel.js"></script>
+        <script src="drawMode/shaper.js"></script>
+        <script src="drawMode/canvas.js"></script>
+        <script src="imageMode/transformer.js"></script>
+        <script src="imageMode/importer.js"></script>
+        <script src="menu.js"></script>
+    </body>

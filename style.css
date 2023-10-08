@@ -1,0 +1,420 @@
+:root {
+    --fontSize: 1.5vw;
+    --menuWidth: 20vw;
+    --darkColor: #b8b8b8;
+    --mediumColor: #e4e4e4;
+    --lightColor: #f3f3f3;
+}
+body {
+    margin: 0; 
+    padding: 0;
+    font-size: var(--fontSize);
+    position: relative;
+}
+
+/* 1. MAIN PAGE */
+main {
+    position: relative;
+    width: calc(100vw - var(--scrollbar));
+    height: 100vh;
+    margin: 0;
+}
+#mainCanvas, #cursorCanvas, #backCanvas {
+    position: absolute;
+    top: 0; left: 0;
+}
+#mainCanvas {
+    z-index: 1000;
+    pointer-events: none; 
+}
+#backCanvas {
+    z-index: -1000;
+    pointer-events: none; 
+}
+#cursorCanvas {
+    z-index: 2000;
+    display: none;
+}
+.image {
+    width: 20vw;
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0;
+    margin: auto;
+    touch-action: none;
+}
+
+/* 2. MENU */
+#menu {
+    z-index: 2001;
+    position: fixed;
+    width: var(--menuWidth);
+    right: 0; top: 0;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+#menu > button {
+    all: unset;
+    font-family: sans-serif;
+    font-variant: small-caps;
+    font-weight: bold;
+    background-color: var(--darkColor);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+#menu > button.active {
+    background-color: var(--lightColor);
+    border-bottom: none;
+}
+#menu > button:hover {
+    cursor: pointer;
+}
+#menuBody {
+    position: relative;
+    grid-column: 1 / span 2;
+}
+#underlay {
+    z-index: -10;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #b8b8b8;
+    top: 0; right: 0;
+}
+#optionsContainer {
+    background-color: var(--lightColor);
+    grid-column: 1 / span 2;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    display: flex;
+    justify-content: center;
+}
+#optionsContainer button {
+    all: unset;
+    margin: 1em 0;
+    background-color: var(--mediumColor);
+    font-variant: small-caps;
+    font-family: sans-serif;
+    color: #525252;
+    border-radius: 0.8em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 0.1em 0.5em 0.2em;
+}
+#optionsContainer button.closed {
+    margin: 0.4em 0;
+}
+#optionsContainer button:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+#drawMenu, #imageMenu {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--lightColor);
+}
+#drawMenu {
+    border-top-left-radius: 1em;
+}
+#imageMenu {
+    border-top-right-radius: 1em;
+}
+
+/* 3. IMAGE MENU */
+#transformers {
+    margin-top: 1em;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#transformers button {
+    all: unset;
+    border-radius: 0.8em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+#transformers button:hover {
+    background-color: var(--mediumColor);
+    cursor: pointer;
+}
+#transformers button.active {
+    background-color: var(--mediumColor);
+}
+#transformers button > img {
+    width: 2.1em;
+    height: 2.1em;
+    margin: 0.4em;
+}
+#imageContainer {
+    width: calc(var(--menuWidth)*0.75);
+    height: calc(var(--menuWidth)*0.75);
+    margin: 1em 0;
+    position: relative;
+}
+#imagePreview {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0; bottom: 0; left: 0; right: 0;
+}
+#importButtons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#leftCycle, #rightCycle {
+    all: unset;
+    border-radius: 0.5em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 0.1em;
+}
+#leftCycle img, #rightCycle img {
+    width: 1.8em;
+    height: 1.8em;
+}
+#leftCycle:hover, #rightCycle:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+#importImage {
+    all: unset;
+    margin: 0;
+    background-color: var(--mediumColor);
+    font-variant: small-caps;
+    font-family: sans-serif;
+    border-radius: 0.8em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.2em 0.5em;
+}
+#importImage:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+    
+/* 4. DRAW MENU */
+#secondwheel {
+    z-index: 1;
+}
+#finalcolor {
+    z-index: 2;
+}
+#colorwheel {
+    position: relative;
+    width: 17.5vw;
+    height: 17.5vw;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+#colorwheel canvas {
+    position: absolute;
+    top: 0; left: 0;
+}
+.shaper {
+    all: unset;
+    width: 75%;
+    height: 2em;
+}
+.shaper.active {
+    background-color: var(--mediumColor);
+    border-radius: 1em;
+}
+#switchContext {
+    all: unset;
+    max-width: 60%;
+    margin: 0; padding: 0.1em;
+    background-color: var(--mediumColor);
+    font-variant: small-caps;
+    font-family: sans-serif;
+    color: #525252;
+    border-radius: 0.8em;
+    line-height: 0.9em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 1em;
+    text-align: center;
+}
+#switchContext:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+#clearCanvas {
+    all: unset;
+    margin: 0;
+    width: 60%;
+    background-color: var(--mediumColor);
+    font-variant: small-caps;
+    font-family: sans-serif;
+    color: #525252;
+    border-radius: 0.8em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 0.6em;
+    padding: 0.1em 0em 0.2em;
+}
+#clearCanvas:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+
+/* 5. FOOTER */
+footer {
+    font-size: var(--fontSize);
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+footer p {
+    font-size: 0.65em;
+    text-align:center;
+    font-family: Georgia sans-serif;
+}
+.divider {
+    width: 30%;
+}
+#returnbutton {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    opacity: 0.75;
+    font-size: 0.7em;
+}
+#returnbutton h4 {
+    text-align: left;
+    margin: 0;
+    font-variant: small-caps;
+    margin-left: 0.2em;
+}
+#return {
+    background-image: url("/images/returngrey.svg");
+    width: 5em;
+    height: 2.5em;
+    background-repeat:no-repeat;
+    background-size:contain;
+}
+#returnbutton:hover {
+    color: #7D1E2D;
+    border-color: #7D1E2D20;
+    cursor: pointer;
+}
+#returnbutton:hover #return {
+    background-image: url("/images/return.svg");
+}
+
+/* 6. HEADER */
+@font-face {
+    font-family: phoneticFont;
+    src: url("/assets/CharisSIL-Regular.woff");
+}
+header {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1500;
+    font-size: var(--fontSize);
+    display: flex;
+}
+#infoButton {
+    all: unset;
+    font-size: 1.2em;
+    font-family: monospace;
+    color: var(--darkColor);
+    border-radius: 50%;
+    border: solid var(--darkColor) 0.1em;
+    padding: 0 0.2em;
+    margin: 0.4em;
+    opacity: 0.6;
+    user-select: none;
+}
+#infoButton:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+#infoButton:active {
+    opacity: 1;
+}
+header.active {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--mediumColor);
+    z-index: 3000;
+}
+header.active #infoButton {
+    color: var(--lightColor);
+    border: solid var(--lightColor) 0.1em;
+    position: absolute;
+    top: 0; left: 0;
+}
+#infoBody {
+    display: none;
+}
+header.active #infoBody {
+    display: block;
+    margin: 2em auto auto;
+    width: 50%;
+    text-align: center;
+    background-color: var(--lightColor);
+    border-radius: 2em;
+}
+#infoBody h1 {
+    margin: 0.5em;
+    font-variant: small-caps;
+    font-family: Georgia sans-serif;
+}
+#infoBody p {
+    margin: 1em 2em;
+    font-family: Georgia sans-serif;
+}
+#continueButton {
+    all: unset;
+    margin: 1em auto;
+    font-size: 1.5em;
+    background-color: var(--mediumColor);
+    font-variant: small-caps;
+    font-family: sans-serif;
+    color: #525252;
+    border-radius: 0.6em;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1em 0.6em 0.2em;
+}
+#continueButton:hover {
+    background-color: var(--darkColor);
+    cursor: pointer;
+}
+
+@media only screen and (max-width:800px) {
+    :root {
+        --fontSize: 3vw;
+        --menuWidth: 50vw;
+    }
+    header.active #infoBody {
+        width: 80%;
+    }
+    #colorwheel {
+        width: 43.75vw;
+        height: 43.75vw;
+        margin-top: 0.5em;
+        margin-bottom: 1em;
+    }
+    
+    footer {
+        display: none;
+    }
+}
+
+
